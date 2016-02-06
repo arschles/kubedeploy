@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: kubedeploy
+  labels:
+    version: 0.0.1
+spec:
+  replicas: 3
+  selector:
+    app: kubedeploy
+  template:
+    metadata:
+      labels:
+        app: kubedeploy
+    spec:
+      containers:
+        - name: kubedeploy
+          image: quay.io/kubedeploy/minio:0.0.1
+          imagePullPolicy: Always
+          env:
+            - name: SERVE_HOST
+              value: "0.0.0.0"
+            - name: SERVE_PORT
+              value: "8081"
+          ports:
+            - containerPort: 8081
