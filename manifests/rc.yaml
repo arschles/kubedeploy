@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: kubedeploy
-          image: quay.io/kubedeploy/minio:0.0.1
+          image: quay.io/kubedeploy/minio:devel
           imagePullPolicy: Always
           env:
             - name: SERVE_HOST
