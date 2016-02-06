@@ -1,3 +1,4 @@
 package: github.com/arschles/kubedeploy
 import:
 - package: github.com/jchauncey/kubeclient
+- package: github.com/gorilla/mux
