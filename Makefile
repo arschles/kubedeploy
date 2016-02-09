@@ -25,3 +25,8 @@ docker-build:
 	docker build --rm -t ${DOCKER_IMAGE} .
 docker-push:
 	docker push ${DOCKER_IMAGE}
+# targets for the beta swagger spec
+swagger-validate:
+	swagger validate swagger.yml
+swagger-gen-server:
+	swagger generate server -A kubedeploy -f swagger.yml

@@ -1,0 +1,48 @@
+# this is a prototype version of the swagger spec for this server
+swagger: "2.0"
+info:
+  description: A deployment service that runs in Kubernetes
+  title: kubedeploy
+  version: 0.0.1
+consumes:
+- application/json
+produces:
+- application/json
+schemes:
+- http
+paths:
+  /deployments/{app_name}/{deployed_version}:
+    post:
+      description: "Deploy a new version"
+      produces:
+        - application/json
+      parameters:
+        - name: app_name
+          in: path
+          description: "The name of the app to deploy"
+          required: true
+          type: string
+        - name: deployed_version
+          in: path
+          description: "The currently deployed version"
+          required: true
+          type: string
+      responses:
+        '200':
+          description: "The deploy was successful"
+          schema:
+            type: object
+            $ref: "#/definitions/completedDeployment"
+definitions:
+  completedDeployment:
+    type: object
+    required:
+    - oldVersion
+    - newVersion
+    properties:
+      oldVersion:
+        type: string
+        readOnly: true
+      newVersion:
+        type: string
+        readOnly: true
