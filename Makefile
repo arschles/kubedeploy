@@ -13,6 +13,8 @@ DOCKER_IMAGE := ${DOCKER_REPO}${DOCKER_ORG}/${DOCKER_IMAGE}:${DOCKER_VERSION}
 
 bootstrap:
 	${DEV_ENV_CMD} glide install
+glideup:
+	${DEV_ENV_CMD} glide up
 glideget:
 	${DEV_ENV_CMD} glide get ${PACKAGE}
 build:
