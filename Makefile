@@ -3,7 +3,7 @@ REPO_PATH := github.com/arschles/${SHORT_NAME}
 DEV_ENV_WORK_DIR := /go/src/${REPO_PATH}
 DEV_ENV_CMD := docker run --rm -e CGO_ENABLED=0 -e GO15VENDOREXPERIMENT=1 -v ${CURDIR}:${DEV_ENV_WORK_DIR} -w ${DEV_ENV_WORK_DIR} quay.io/deis/go-dev:0.5.0
 
-TEST_PACKAGES := $(shell ${DEV_ENV_CMD} glide nv)
+NV_PACKAGES := $(shell ${DEV_ENV_CMD} glide nv)
 
 DOCKER_REPO ?= quay.io/
 DOCKER_ORG ?= arschles
@@ -19,8 +19,12 @@ glideget:
 	${DEV_ENV_CMD} glide get ${PACKAGE}
 build:
 	${DEV_ENV_CMD} go build
+lint:
+	${DEV_ENV_CMD} golint ./handlers/...
+vet:
+	${DEV_ENV_CMD} go vet ${NV_PACKAGES}
 test:
-	${DEV_ENV_CMD} go test ${TEST_PACKAGES}
+	${DEV_ENV_CMD} go test ${NV_PACKAGES}
 docker-build:
 	docker build --rm -t ${DOCKER_IMAGE} .
 docker-push:
